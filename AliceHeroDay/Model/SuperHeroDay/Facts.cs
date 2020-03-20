@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public string Fact { get; set; }
-        public bool isHoroscope { get; set; }
+        public bool IsHoroscope { get; set; }
     }
 }

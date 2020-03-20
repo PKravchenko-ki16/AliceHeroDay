@@ -13,11 +13,11 @@
 
         private DataConnection()
         {
-            this.dataManagement = "../../../dataManagement.json";
-            this.dataDialogueContext = "../../../dataDialogueContext.json";
-            this.dataHeroContext = "../../../dataHeroContext.json";
-            this.dataVillainsContext = "../../../dataVillainsContext.json";
-            this.dataSuperHero = "../../../dataSuperHero.json";
+            this.dataManagement = "../../../../dataManagement.json";
+            this.dataDialogueContext = "../../../../dataDialogueContext.json";
+            this.dataHeroContext = "../../../../dataHeroContext.json";
+            this.dataVillainsContext = "../../../../dataVillainsContext.json";
+            this.dataSuperHero = "../../../../dataSuperHero.json";
         }
 
         public static DataConnection getDataConnection()

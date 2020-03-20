@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using AliceHeroDay.Model.AliceModel;
+using AliceHeroDay.Model.Data;
 
 namespace AliceHeroDay.Model.SuperHeroDayProcedure
 {
@@ -9,10 +11,12 @@ namespace AliceHeroDay.Model.SuperHeroDayProcedure
         // строка с клиента приходит как целая так и разбитая уже по словам без "-"
 
         WelcomeProcedure welcomeProcedure = new WelcomeProcedure();
+        FillingData fillingData = new FillingData();
+        Random random = new Random();
 
         public AliceResponse Procedure(AliceRequest req, ConcurrentDictionary<string, SuperHeroDaySession> concurrentDictionary)
         {
-            if (req.Session.New || req.Request.OriginalUtterance == "ping") { return welcomeProcedure.Proc(req); }
+            if (req.Session.New || req.Request.OriginalUtterance == "ping") { return welcomeProcedure.Proc(req,fillingData, random); }
 
             return new AliceResponse() { Response = new ResponseModel() { Text = "Не попал(" } };
         }

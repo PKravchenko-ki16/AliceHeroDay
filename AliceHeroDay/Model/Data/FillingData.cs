@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AliceHeroDay.Model.ActivationWords;
 using AliceHeroDay.Model.SuperHeroDay;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace AliceHeroDay.Model.Data
 {
@@ -47,6 +49,20 @@ namespace AliceHeroDay.Model.Data
             using (StreamReader sr = new StreamReader(dataConnection.dataSuperHero))
             {
                 return JsonConvert.DeserializeObject<List<SuperHero>>(sr.ReadToEnd());
+            }
+        }
+
+        public List<Facts> FillingFactsIsHoroscope(DateTime dataTime)
+        {
+            using (StreamReader sr = new StreamReader(dataConnection.dataSuperHero))
+            {
+                List<Facts> _factsHero = new List<Facts>();
+                foreach (var i in JsonConvert.DeserializeObject<List<SuperHero>>(sr.ReadToEnd()))
+                {
+                    if (i.DebutDate.Month == dataTime.Month)
+                        _factsHero.AddRange(i.Facts.Where(p => p.IsHoroscope == true));
+                }
+                return _factsHero;
             }
         }
 
