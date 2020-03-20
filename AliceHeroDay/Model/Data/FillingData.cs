@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using AliceHeroDay.Model.ActivationWords;
+using AliceHeroDay.Model.SuperHeroDay;
 using Newtonsoft.Json;
 
 namespace AliceHeroDay.Model.Data
@@ -38,6 +39,14 @@ namespace AliceHeroDay.Model.Data
             using (StreamReader sr = new StreamReader(dataConnection.dataVillainsContext))
             {
                 return JsonConvert.DeserializeObject<List<VillainsContext>>(sr.ReadToEnd());
+            }
+        }
+
+        public List<SuperHero> FillingHero()
+        {
+            using (StreamReader sr = new StreamReader(dataConnection.dataSuperHero))
+            {
+                return JsonConvert.DeserializeObject<List<SuperHero>>(sr.ReadToEnd());
             }
         }
 

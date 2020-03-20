@@ -4,6 +4,6 @@ namespace AliceHeroDay.Model.SuperHeroDayProcedure
 {
     public interface IProcedure
     {
-        AliceResponse Procedure(AliceRequest request, SuperHeroDayState state);
+        AliceResponse Proc(AliceRequest request);
     }
 }

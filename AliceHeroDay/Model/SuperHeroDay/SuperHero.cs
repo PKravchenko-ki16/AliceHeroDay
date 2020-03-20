@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AliceHeroDay.Model.SuperHeroDay
 {
@@ -16,8 +15,6 @@ namespace AliceHeroDay.Model.SuperHeroDay
 
         public DateTime DebutDate { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
-
         public string History { get; set; }
 
         public List<Facts> Facts { get; set; }
@@ -25,5 +22,9 @@ namespace AliceHeroDay.Model.SuperHeroDay
         public string DebutComicBook { get; set; }
 
         public int DebutComicBookNumber { get; set; }
+        
+        public string ImageSuperHero { get; set; }
+
+        public string AudioSuperHero { get; set; }
     }
 }

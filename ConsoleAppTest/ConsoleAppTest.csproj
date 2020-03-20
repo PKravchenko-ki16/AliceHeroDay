@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Miyconst.Cyriller" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AliceHeroDay\AliceHeroDay.csproj" />
   </ItemGroup>
 

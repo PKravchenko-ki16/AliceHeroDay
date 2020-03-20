@@ -1,0 +1,38 @@
+[
+  {
+    "WordsActivators": [
+      "пока",
+      "бай",
+      "хватит",
+      "спасибо"
+    ],
+    "Answers": {
+      "Text": [],
+      "Tts": []
+    },
+    "IsEnd": false
+  },
+  {
+    "WordsActivators": [
+      "справка",
+      "помощь",
+      "что ты умеешь"
+    ],
+    "Answers": {
+      "Text": [],
+      "Tts": []
+    },
+    "IsEnd": false
+  },
+  {
+    "WordsActivators": [
+      "гороскоп",
+      "гороскопе"
+    ],
+    "Answers": {
+      "Text": [],
+      "Tts": []
+    },
+    "IsEnd": false
+  }
+]

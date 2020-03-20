@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AliceHeroDay.Model.ActivationWords
+﻿namespace AliceHeroDay.Model.ActivationWords
 {
     public class VillainsContext
     {

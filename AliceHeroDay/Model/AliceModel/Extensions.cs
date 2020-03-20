@@ -17,7 +17,7 @@
             };
         }
 
-        public static AliceResponse Reply(this AliceRequest req, ResponseCard card)
+        public static AliceResponse Reply(this AliceRequest req, ResponseCard card) // ответ для мобилок
         {
             var response = req.Reply(card.Title);
             response.Response.Card = card;
