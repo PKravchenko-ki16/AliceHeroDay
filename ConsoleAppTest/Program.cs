@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AliceHeroDay.Model;
 using AliceHeroDay.Model.ActivationWords;
 using AliceHeroDay.Model.Data;
 using AliceHeroDay.Model.SuperHeroDay;
@@ -11,30 +12,12 @@ using Newtonsoft.Json;
 
 namespace ConsoleAppTest
 {
-    public class Data
-    {
-        public static bool ContainOneOf(string text, string[] words)
-        {
-            foreach (var i in words)
-            {
-                i.ToLower().Split().ToHashSet();
-                //if (text.ToLower().Split().ToHashSet().Any(x => Regex.IsMatch(x, $"\\b{i}\\b"))) return true;
-                //if (text.ToLower().Split().ToHashSet().Any(x => i.Contains(x))) return true;
-                //if (text.ToLower().Split().ToHashSet().Any(x => x.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0)) return true;
-                //bool contains = text.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0;
-                if (text.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0) return true;
-            }
-            return false;
-        }
-    }
-
     class Program
     {
         private static CyrName cyrName = new CyrName();
 
         static void Main(string[] args)
         {
-            Data data = new Data();
             DataConnection dataConnection = DataConnection.getDataConnection();
 
             #region Writer VillainsContext
@@ -144,12 +127,6 @@ namespace ConsoleAppTest
             //            WordsActivators = new string[] { "справка", "помощь", "что ты умеешь" },
             //            Answers = new AnswerManagement() { Text = new string[] { }, Tts = new string[] { } },
             //            IsEnd = false
-            //        },
-            //        new Management()
-            //        {
-            //            WordsActivators = new string[] { "гороскоп", "гороскопе"},
-            //            Answers = new AnswerManagement() { Text = new string[] { }, Tts = new string[] { } },
-            //            IsEnd = false
             //        }
             //    };
 
@@ -254,22 +231,32 @@ namespace ConsoleAppTest
             #endregion
 
             #region Сравнение
-            //string req = "расскажи факт о человеке-пауке";
+            //string req = "мне надо пока уходить из программы";
 
-            //using (StreamReader sr = new StreamReader(dataConnection.dataVillainsContext))
+            //using (StreamReader sr = new StreamReader(dataConnection.dataManagement))
             //{
-            //    Console.WriteLine("AnswerStain");
-            //    List<VillainsContext> listStainTest = JsonConvert.DeserializeObject<List<VillainsContext>>(sr.ReadToEnd(), new Newtonsoft.Json.JsonSerializerSettings
+            //    Console.WriteLine("AnswerManagement");
+            //    Matching hashCompareTo = new Matching();
+            //    List<Management> listManagementTest = JsonConvert.DeserializeObject<List<Management>>(sr.ReadToEnd());
+            //    foreach (var i in listManagementTest)
             //    {
-            //        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-            //        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-            //    });
-            //    foreach (var i in listStainTest)
-            //    {
-            //        Console.WriteLine($"Words_activators: {i.Words_activators[0]}");
-            //        var res = ContainOneOf(req, i.Words_activators);
-            //        if (res) Console.WriteLine("true");
-            //        else Console.WriteLine("false");
+            //        for (int j = 0; j < i.WordsActivators.Length; j++)
+            //        {
+            //            var resultBool = hashCompareTo.ContainOneOf(req, i.WordsActivators);
+            //            if (resultBool) {
+            //                Console.WriteLine($"WordsActivators: {i.WordsActivators[j]}");
+            //                Console.WriteLine("ContainOneOf true");
+            //            }
+
+            //            var resultString = hashCompareTo.HashCompareTo(i.WordsActivators[j], req);
+            //            if (resultString != "")
+            //            {
+            //                Console.WriteLine();
+            //                Console.WriteLine($"WordsActivators: {i.WordsActivators[j]}");
+            //                Console.WriteLine($"hashCompareTo: слово, которое совпало начинается с {resultString}");
+            //                Console.WriteLine();
+            //            }
+            //        }
             //    }
             //}
             #endregion

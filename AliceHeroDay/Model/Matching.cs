@@ -1,13 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace AliceHeroDay.Model
 {
-    public class HashCompareTo
+    public class Matching
     {
+        public bool ContainOneOf(string text, string[] words)
+        {
+            foreach (var i in words)
+            {
+                i.ToLower().Split().ToHashSet();
+                if (text.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            }
+            return false;
+        }
+
         //Хеш-функция для алгоритма Рабина-Карпа
-        public static int Hash(string x)
+        public int Hash(string x)
         {
             int p = 31; //Простое число
             int rez = 0; //Результат вычисления
@@ -18,7 +27,7 @@ namespace AliceHeroDay.Model
             return rez;
         } //Функция поиска алгоритмом Рабина-Карпа
 
-        public static string Rabina(string x, string s)
+        public string HashCompareTo(string x, string s)
         {
             string nom = "";
             //Номера всех вхождений образца в строку 

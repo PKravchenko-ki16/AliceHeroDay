@@ -4,7 +4,7 @@ using AliceHeroDay.Model.Data;
 
 namespace AliceHeroDay.Model.SuperHeroDayProcedure
 {
-    public class WelcomeProcedure : IProcedure
+    public class WelcomeProcedure
     {
         public AliceResponse Proc(AliceRequest request, FillingData fillingData, Random random)
         {
