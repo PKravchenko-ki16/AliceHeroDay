@@ -7,26 +7,35 @@ namespace AliceHeroDay.Model.SuperHeroDayProcedure
 {
     public class SuperHeroDayProcedure
     {
-        // должны определить это какой процесс *Приветствие или *Уточнение_прощяния или *Прощяние иначе *Поиск_Контекста
-        // строка с клиента приходит как целая так и разбитая уже по словам без "-"
-
         GoodByeProcedure goodByeProcedure = new GoodByeProcedure();
         WelcomeProcedure welcomeProcedure = new WelcomeProcedure();
-        Matching matching = new Matching();
+        ClarificationProcedure clarificationProcedure = new ClarificationProcedure();
+        DialogueContextProcedure dialogueContextProcedure = new DialogueContextProcedure();
         MatchingGoodBye matchingGoodBye = new MatchingGoodBye();
-        FillingData fillingData = new FillingData(); //не может быть один экземпляр на каждого пользователя, ещё надо делать асинхронность.
+        MatchingDialogueContext matchingDialogueContext = new MatchingDialogueContext();
+        MatchingHeroContext matchingHeroContext = new MatchingHeroContext();
+        Matching matching = new Matching();
+        RequestClearing requestClearing = new RequestClearing();
+        FillingData fillingData = new FillingData();
 
         public AliceResponse Procedure(AliceRequest req, ConcurrentDictionary<string, SuperHeroDaySession> concurrentDictionary)
         {
-            if (req.Session.New || req.Request.OriginalUtterance == "ping") { return welcomeProcedure.Proc(req, fillingData, new Random()); }
+            if (req.Session.New || req.Request.Command == "ping") { return welcomeProcedure.Proc(req, fillingData, new Random()); }
 
+            AliceRequest requestClean = requestClearing.Сlean(req);
 
+            if (matchingGoodBye.Match(requestClean.Request.Command, matching, fillingData) != null) {
+                return goodByeProcedure.Proc(requestClean, matchingGoodBye.Match(requestClean.Request.Command, matching, fillingData), new Random(), concurrentDictionary); }
 
-            var answer = matchingGoodBye.Match(req.Request.OriginalUtterance, matching, fillingData);
-            if (answer != null) { return goodByeProcedure.Proc(req, answer, new Random(), concurrentDictionary); }
+            matchingDialogueContext.Match(requestClean, matching, fillingData, concurrentDictionary);
+
+            var isHeroContext = matchingHeroContext.Match(requestClean, matching, fillingData, concurrentDictionary);
+
+            if (!isHeroContext) { return clarificationProcedure.Proc(requestClean, concurrentDictionary); }
+
+            if (isHeroContext) { return dialogueContextProcedure.Proc(requestClean, concurrentDictionary, fillingData, new Random()); }
 
             return new AliceResponse() { Response = new ResponseModel() { Text = "Не попал(" } };
         }
-        
     }
 }

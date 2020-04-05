@@ -52,7 +52,7 @@ namespace AliceHeroDay.Model.Data
             }
         }
 
-        public List<Facts> FillingFactsIsHoroscope(DateTime dataTime)
+        public List<Facts> FillingFactsIsHoroscope(DateTime dataTime) //MatchingIsHoroscope
         {
             using (StreamReader sr = new StreamReader(dataConnection.dataSuperHero))
             {
@@ -65,17 +65,5 @@ namespace AliceHeroDay.Model.Data
                 return _factsHero;
             }
         }
-
-        //public List<AnswerStain> FillingStain()
-        //{
-        //    using (StreamReader sr = new StreamReader(dataConnection.dataStain))
-        //    {
-        //        return JsonConvert.DeserializeObject<List<AnswerStain>>(sr.ReadToEnd(), new Newtonsoft.Json.JsonSerializerSettings
-        //        {
-        //            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-        //            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-        //        });
-        //    }
-        //}
     }
 }

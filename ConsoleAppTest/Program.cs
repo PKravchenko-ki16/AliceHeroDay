@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using AliceHeroDay.Model;
 using AliceHeroDay.Model.ActivationWords;
+using AliceHeroDay.Model.AliceModel;
 using AliceHeroDay.Model.Data;
 using AliceHeroDay.Model.SuperHeroDay;
 using Cyriller;
@@ -19,6 +20,7 @@ namespace ConsoleAppTest
         static void Main(string[] args)
         {
             DataConnection dataConnection = DataConnection.getDataConnection();
+            RequestClearing requestClearing = new RequestClearing();
 
             #region Writer VillainsContext
             //using (StreamWriter writer = new StreamWriter(dataConnection.dataVillainsContext))
@@ -52,6 +54,8 @@ namespace ConsoleAppTest
             //    _superHero = JsonConvert.DeserializeObject<List<SuperHero>>(sr.ReadToEnd());
             //}
 
+            //List<HeroContext> listHeroContexts = new List<HeroContext>();
+
             //using (StreamWriter writer = new StreamWriter(dataConnection.dataHeroContext))
             //{
             //    var _prepositional = new List<string>();
@@ -59,14 +63,9 @@ namespace ConsoleAppTest
             //    foreach (var i in _superHero)
             //    {
             //        CyrResult cyrNameResult = cyrName.Decline(i.HeroicName);
-            //        _prepositional.Add(cyrNameResult.Prepositional);
-            //        _otherCases.Add(cyrNameResult.Nominative);
-            //        _otherCases.Add(cyrNameResult.Genitive);
-            //        _otherCases.Add(cyrNameResult.Dative);
-            //        _otherCases.Add(cyrNameResult.Instrumental);
+            //        listHeroContexts.Add(new HeroContext() { Id = i.Id, Prepositional = cyrNameResult.Prepositional, OtherCases = new string[] { cyrNameResult.Nominative, cyrNameResult.Genitive, cyrNameResult.Dative, cyrNameResult.Instrumental } });
             //    }
-            //    var _hero = new HeroContext() { Prepositional = _prepositional.ToArray(), OtherCases = _otherCases.ToArray() };
-            //    writer.WriteLine(JsonConvert.SerializeObject(_hero, Formatting.Indented));
+            //    writer.WriteLine(JsonConvert.SerializeObject(listHeroContexts, Formatting.Indented));
             //}
             #endregion
 
@@ -74,10 +73,10 @@ namespace ConsoleAppTest
             //using (StreamReader sr = new StreamReader(dataConnection.dataHeroContext))
             //{
             //    Console.WriteLine("_hero");
-            //    HeroContext _hero = JsonConvert.DeserializeObject<HeroContext>(sr.ReadToEnd());
-            //    for (int i = 0; i < _hero.Prepositional.Length; i++)
+            //    List<HeroContext> _hero = JsonConvert.DeserializeObject<List<HeroContext>>(sr.ReadToEnd());
+            //    foreach (var i in _hero)
             //    {
-            //        Console.WriteLine($"Name: {_hero.Prepositional[i]}");
+            //        Console.WriteLine($"Id: {i.Id} Name: {i.Prepositional}");
             //    }
             //}
             #endregion
@@ -87,9 +86,14 @@ namespace ConsoleAppTest
             //{
             //    var _dialogue = new List<DialogueContext>()
             //    {
-            //        new DialogueContext() { WordsIsContext = new string[] { "факт", "факта", "факту", "фактом", "факте", "факты", "фактов", "фактам", "фактами", "фактах" } },
-            //        new DialogueContext() { WordsIsContext = new string[] { "случай", "случая", "случаю", "случаем", "случае", "случаи", "случаев", "случаям", "случаями", "случаях" } },
-            //        new DialogueContext() { WordsIsContext = new string[] { "история", "истории", "историю", "историей", "историям", "историями", "историях" } }
+            //        new DialogueContext() { Title = EnumDialogueContext.History, WordsIsContext = new string[] { "история", "истории", "историю", "историей", "историям", "историями", "историях" } },
+            //        new DialogueContext() { Title = EnumDialogueContext.Facts, WordsIsContext = new string[] { "факт", "факта", "факту", "фактом", "факте", "факты", "фактов", "фактам", "фактами", "фактах", "случай", "случая", "случаю", "случаем", "случае", "случаи", "случаев", "случаям", "случаями", "случаях" } },
+            //        new DialogueContext() { Title = EnumDialogueContext.DebutComicBook, WordsIsContext = new string[] { "дебюте", "дебют", "дебютом", "дебюта", "дебюту", "комикс", "комикса", "комиксе", "комиксу", "комиксом", "журнал", "журнале", "журналу", "журнала"
+            //        , "дата", "даты", "дате", "дату", "датой", "даты", "датах", "годовщина", "годовщине", "годовщины", "годовщиной" } },
+            //        new DialogueContext() { Title = EnumDialogueContext.Universe, WordsIsContext = new string[] { "вселенная", "вселенной", "вселенную", "вселенных", "вселенные", "вселенным", "вселенными", "киностудия", "киностудии", "киностудию", "киностудией", "студией", "студия","студии" } },
+            //        new DialogueContext() { Title = EnumDialogueContext.Nickname, WordsIsContext = new string[] { "мифическое", "геройское", "супергеройское", "героическое" } },
+            //        new DialogueContext() { Title = EnumDialogueContext.RealName, WordsIsContext = new string[] { "реальное", "настоящее", "собственное", "истинное", "подлинное", "оригинальное" } },
+            //        new DialogueContext() { Title = EnumDialogueContext.Horoscop, WordsIsContext = new string[] { "гороскоп", "гороскопу", "гороскопа", "гороскопом", "гороскопе", "гороскопы", "гороскопах" } }
             //    };
 
             //    writer.WriteLine(JsonConvert.SerializeObject(_dialogue, Formatting.Indented));
@@ -105,7 +109,7 @@ namespace ConsoleAppTest
             //    {
             //        for (int i = 0; i < j.WordsIsContext.Length; i++)
             //        {
-            //            Console.WriteLine($"Name: {j.WordsIsContext[i]}");
+            //            Console.WriteLine($"Title: {j.Title} WordsIsContext: {j.WordsIsContext[i]}");
             //        }
             //    }
             //}
@@ -259,6 +263,12 @@ namespace ConsoleAppTest
             //        }
             //    }
             //}
+            #endregion
+
+            #region Очистка запроса
+            //AliceRequest aliceRequest = new AliceRequest() { Request = new RequestModel() { Command = "Из какой в вселенной тор?" } };
+            //var r = requestClearing.Сlean(aliceRequest);
+            //Console.WriteLine( r.Request.Command);
             #endregion
 
             Console.ReadLine();

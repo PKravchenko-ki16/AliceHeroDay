@@ -12,5 +12,8 @@ namespace AliceHeroDay.Model.AliceModel
 
         [JsonProperty("client_id")]
         public string ClientId { get; set; }
+
+        [JsonProperty("interfaces")]
+        public InterfacesModel Interfaces { get; set; }
     }
 }

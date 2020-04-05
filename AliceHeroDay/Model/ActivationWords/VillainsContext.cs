@@ -2,8 +2,10 @@
 {
     public class VillainsContext
     {
-        public string[] Prepositional { get; set; } // о ком? о чём?
+        public int Id { get; set; }
 
-        public string[] OtherCases { get; set; } //  всё другое
+        public string Prepositional { get; set; }
+
+        public string[] OtherCases { get; set; }
     }
 }

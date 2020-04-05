@@ -23,10 +23,43 @@ namespace AliceHeroDay.Model.AliceModel
     public class ResponseCard
     {
         [JsonProperty("type")]
-        public string Type = "BigImage";
+        public string Type { get; set; }
+    }
+
+    public class ResponseCardBigImage : ResponseCard
+    {
+        [JsonProperty("type")]
+        public new string Type = "BigImage";
 
         [JsonProperty("title")]
-        public readonly string Title;
+        public string Title;
+
+        [JsonProperty("image_id")]
+        public string ImageId;
+
+        [JsonProperty("description")]
+        public string Descriptin = "";
+    }
+
+    public class ResponseCardItemsList: ResponseCard
+    {
+        [JsonProperty("type")]
+        public new string Type = "ItemsList";
+
+        [JsonProperty("header")]
+        public ResponseItemsListHeader Header { get; set; }
+
+        [JsonProperty("footer")]
+        public ResponseCardFooter Footer { get; set; }
+
+        [JsonProperty("items")]
+        public ResponseItemsListImage[] Items { get; set; }
+    }
+
+    public class ResponseItemsListImage
+    {
+        [JsonProperty("title")]
+        public string Title;
 
         [JsonProperty("image_id")]
         public string ImageId;
@@ -34,10 +67,31 @@ namespace AliceHeroDay.Model.AliceModel
         [JsonProperty("description")]
         public string Descriptin = "";
 
-        public ResponseCard(string title, string imageId)
-        {
-            Title = title;
-            ImageId = imageId;
-        }
+        [JsonProperty("button")]
+        public ResponseCardButton Button { get; set; }
+    }
+
+    public class ResponseItemsListHeader {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+    }
+
+    public class ResponseCardFooter {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("button")]
+        public ResponseCardButton Button { get; set; }
+    }
+
+    public class ResponseCardButton {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("payload")]
+        public object Payload { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
     }
 }

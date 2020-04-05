@@ -15,6 +15,13 @@ namespace AliceHeroDay.Model
             return false;
         }
 
+        public bool ContainOneOf(string text, string word)
+        {
+           word.ToLower().Split().ToHashSet();
+           if (text.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            return false;
+        }
+
         //Хеш-функция для алгоритма Рабина-Карпа
         public int Hash(string x)
         {

@@ -48,18 +48,18 @@ namespace AliceHeroDay
 
             if (req.Session.New && (req.Session.MessageId == 0))
             {
-                _superHeroDaySession.AddOrUpdate(req.Session.SessionId, new SuperHeroDaySession() { MessageId = req.Session.MessageId },
-                    (key, oldValue) => new SuperHeroDaySession() { MessageId = req.Session.MessageId });
+                _superHeroDaySession.AddOrUpdate(req.Session.SessionId, new SuperHeroDaySession() { MessageId = req.Session.MessageId, Context = Model.ActivationWords.EnumDialogueContext.All },
+                    (key, oldValue) => new SuperHeroDaySession() { MessageId = req.Session.MessageId, Context = Model.ActivationWords.EnumDialogueContext.All, Hero = 0 }); ;
                 //это безопастно так как каждый user работает со своим уникальным ключём, 
                 //и то что функция не вызывает блокировку потока на добавление и обновление ни на что не повлияет.
             }
 
             var response = superHeroDayProcedure.Procedure(req, _superHeroDaySession);
 
-            //if (response.Response.EndSession)
-            //{
-            //    _superHeroDaySession.TryRemove(req.Session.SessionId, out SuperHeroDaySession value);
-            //}
+            if (response.Response.EndSession)
+            {
+                _superHeroDaySession.TryRemove(req.Session.SessionId, out _);
+            }
 
             return response;
         }

@@ -8,8 +8,7 @@
             {
                 Response = new ResponseModel
                 {
-                    //Text = text.Replace("+", "").Replace("- ", ""), //для того чтобы хранить tts and text в одном файле
-                    Text = text,
+                    Text = text.Replace("+", "").Replace("- ", ""),
                     Tts = text,
                     EndSession = endSession
                 },
@@ -17,9 +16,9 @@
             };
         }
 
-        public static AliceResponse Reply(this AliceRequest req, ResponseCard card) // ответ для мобилок
+        public static AliceResponse Reply(this AliceRequest req, ResponseCard card, string text = "")
         {
-            var response = req.Reply(card.Title);
+            var response = req.Reply(text);
             response.Response.Card = card;
             return response;
         }

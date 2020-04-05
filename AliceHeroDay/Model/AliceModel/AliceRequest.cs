@@ -15,5 +15,10 @@ namespace AliceHeroDay.Model.AliceModel
 
         [JsonProperty("version")]
         public string Version { get; set; }
+
+        public bool HasScreen()
+        {
+            return Meta?.Interfaces?.Screen != null;
+        }
     }
 }
